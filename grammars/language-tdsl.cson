@@ -1,0 +1,488 @@
+'scopeName': 'source.tdsl'
+'name': 'Tigase DSL'
+'fileTypes': [
+  'tdsl'
+]
+'patterns': [
+  {
+    include: '#value_pair'
+  }
+  {
+    include: '#comment'
+  }
+  {
+    include: '#bean'
+  }
+  {
+    include: '#map'
+  }
+]
+repository:
+  # Comment grammar
+  comment:
+    match: '((#).*$\\n?)'
+    captures:
+      1:
+        name: 'comment.line.number-sign.asciidoc.properties'
+      2:
+        name: 'punctuation.definition.comment.asciidoc.properties'
+      3:
+        name: 'comment.line.semi-colon.asciidoc.properties'
+      4:
+        name: 'punctuation.definition.comment.asciidoc.properties'
+  'value_pair':
+    name: 'meta.value-pair.section-item.asciidoc.properties'
+    begin: '(\'?[-\\w]+\'?)\\s*(=)\\s*(?!$)'
+    captures:
+      1:
+        name: 'punctuation.definition.entity.asciidoc.properties'
+      2:
+        #name: 'punctuation.separator.key-value.asciidoc.properties'
+        name: 'keyword.operator.assignment.groovy'
+    end: '\\s'
+    patterns: [
+      {
+        include: '#boolean'
+      }
+      {
+        include: '#list'
+      }
+      {
+        include: '#expression'
+      }
+      {
+        include: '#env-function'
+      }
+      {
+        include: '#prop-function'
+      }
+      {
+        include: '#bean'
+      }
+      {
+        include: '#map'
+      }
+      {
+        include: '#escaped-string'
+      }
+      {
+        include: '#string-quoted-double'
+      }
+      {
+        include: '#string-quoted-single'
+      }
+      {
+        include: '#numbers'
+      }
+      {
+        include: '#comment'
+      }
+    ]
+  bean:
+    begin: '((\'.+\')|\\w+)\\s*(\\([^\\)]*\\))?\\s*(\\{)'
+    beginCaptures:
+      1:
+        name: 'entity.name.function.java'
+      3:
+        patterns: [
+          {
+            match: '(class|active|exportable):\\s*([^,\\)]+)'
+            captures:
+              1:
+                name: 'keyword.control.groovy'
+              2:
+                patterns: [
+                  {
+                    include: '#boolean'
+                  }
+                  {
+                    match: '[\\w\\.]+'
+                    name: 'meta.closure.parameter.groovy'
+                  }
+                ]
+          }
+          # {
+          #   include: '#boolean'
+          # }
+          # {
+          #   include: '#escaped-string'
+          # }
+          # {
+          #   include: '#string-quoted-double'
+          # }
+          # {
+          #   include: '#string-quoted-single'
+          # }
+          # {
+          #   include: '#numbers'
+          # }
+        ]
+      4:
+        name: 'punctuation.section.scope.begin.js'
+    end: '(\\})'
+    endCaptures:
+      1:
+        name: 'punctuation.section.scope.end.js'
+    name: 'meta.function.method.definition.js'
+    patterns: [
+      # {
+      #   include: '#boolean'
+      # }
+      # {
+      #   include: '#escaped-string'
+      # }
+      # {
+      #   include: '#string-quoted-double'
+      # }
+      # {
+      #   include: '#string-quoted-single'
+      # }
+      # {
+      #   include: '#numbers'
+      # }
+      # {
+      #   include: '#list'
+      # }
+      {
+        include: '#value_pair'
+      }
+      {
+        include: '#bean'
+      }
+      {
+        include: '#map'
+      }
+      {
+        include: '#comment'
+      }
+    ]
+  map:
+    begin: '\\{'
+    end: '\\}'
+    name: 'keyword.operator.assignment.groovy'
+    patterns: [
+      # {
+      #   include: '#boolean'
+      # }
+      # {
+      #   include: '#escaped-string'
+      # }
+      # {
+      #   include: '#string-quoted-double'
+      # }
+      # {
+      #   include: '#string-quoted-single'
+      # }
+      # {
+      #   include: '#numbers'
+      # }
+      # {
+      #   include: '#list'
+      # }
+      {
+        include: '#value_pair'
+      }
+      {
+        include: '#bean'
+      }
+      {
+        include: '#map'
+      }
+      {
+        include: '#comment'
+      }
+    ]
+  list:
+    match: '\\[(.*)\\]'
+    begin: '\\['
+    end: '\\]'
+    name: 'keyword.operator.assignment.groovy'
+    captures:
+      1:
+        patterns: [
+          {
+            include: "#listItem"
+          }
+        ]
+  listItem:
+    patterns: [
+      {
+        include: '#boolean'
+      }
+      {
+        include: '#expression'
+      }
+      {
+        include: '#env-function'
+      }
+      {
+        include: '#prop-function'
+      }
+      {
+        include: '#escaped-string'
+      }
+      {
+        include: '#string-quoted-double'
+      }
+      {
+        include: '#string-quoted-single'
+      }
+      {
+        include: '#numbers'
+      }
+      {
+        include: '#list'
+      }
+      {
+        include: '#bean'
+      }
+      {
+        include: '#map'
+      }
+      {
+        include: '#comment'
+      }
+    ]
+  # Boolean value
+  boolean:
+    match: '\\b(?i:yes|no|0|1|true|false)\\b'
+    name: 'constant.language.boolean.asciidoc.properties'
+  # String value
+  # string:
+  #   name: 'string.quoted.double.asciidoc.properties'
+  #   begin: '"'
+  #   beginCaptures:
+  #     0:
+  #       name: 'punctuation.definition.string.begin.asciidoc.properties'
+  #   end: '"'
+  #   endCaptures:
+  #     0:
+  #       name: 'punctuation.definition.string.end.asciidoc.properties'
+  #   patterns: [
+  #     {
+  #       match: '\\\\[ntb"\\\\]'
+  #       name: 'constant.character.escape.asciidoc.properties'
+  #     }
+  #     {
+  #       match: '\\\\.'
+  #       name: 'invalid.illegal.unknown-escape.asciidoc.properties'
+  #     }
+  #   ]
+  # string2:
+  #   name: 'string.quoted.double.asciidoc.properties'
+  #   begin: '\''
+  #   beginCaptures:
+  #     0:
+  #       name: 'punctuation.definition.string.begin.asciidoc.properties'
+  #   end: '\''
+  #   endCaptures:
+  #     0:
+  #       name: 'punctuation.definition.string.end.asciidoc.properties'
+  #   patterns: [
+  #     {
+  #       match: '\\\\[ntb"\\\\]'
+  #       name: 'constant.character.escape.asciidoc.properties'
+  #     }
+  #     {
+  #       match: '\\\\.'
+  #       name: 'invalid.illegal.unknown-escape.asciidoc.properties'
+  #     }
+  #   ]
+  'string-quoted-double':
+    'begin': '"'
+    'beginCaptures':
+      '0':
+        'name': 'punctuation.definition.string.begin.groovy'
+    'end': '"'
+    'endCaptures':
+      '0':
+        'name': 'punctuation.definition.string.end.groovy'
+    'name': 'string.quoted.double.groovy'
+    'patterns': [
+      {
+        'include': '#string-quoted-double-contents'
+      }
+    ]
+  'string-quoted-double-contents':
+    'patterns': [
+      {
+        'match': '\\\\.'
+        'name': 'constant.character.escape.groovy'
+      }
+      {
+        'applyEndPatternLast': 1
+        'begin': '\\$\\w'
+        'end': '(?=\\W)'
+        'name': 'variable.other.interpolated.groovy'
+        'patterns': [
+          {
+            'match': '\\w'
+            'name': 'variable.other.interpolated.groovy'
+          }
+          {
+            'match': '\\.'
+            'name': 'keyword.other.dereference.groovy'
+          }
+        ]
+      }
+      {
+        'begin': '\\$\\{'
+        'captures':
+          '0':
+            'name': 'punctuation.section.embedded.groovy'
+        'end': '\\}'
+        'name': 'source.groovy.embedded.source'
+        'patterns': [
+          {
+            'include': '#nest_curly'
+          }
+        ]
+      }
+    ]
+  'string-quoted-single':
+    'begin': '\''
+    'beginCaptures':
+      '0':
+        'name': 'punctuation.definition.string.begin.groovy'
+    'end': '\''
+    'endCaptures':
+      '0':
+        'name': 'punctuation.definition.string.end.groovy'
+    'name': 'string.quoted.single.groovy'
+    'patterns': [
+      {
+        'include': '#string-quoted-single-contents'
+      }
+    ]
+  'string-quoted-single-contents':
+    'patterns': [
+      {
+        'match': '\\\\.'
+        'name': 'constant.character.escape.groovy'
+      }
+    ]
+  expression:
+    patterns: [
+      {
+        match: '(.*)\\s+([\+\-\/\*])\\s+(.*)'
+        captures:
+          1:
+            patterns: [
+              {
+                include: "#expression"
+              }
+              {
+                include: "#env-function"
+              }
+              {
+                include: "#prop-function"
+              }
+              {
+                include: "#string-quoted-single"
+              }
+              {
+                include: "#string-quoted-double"
+              }
+              {
+                include: "#numbers"
+              }
+            ]
+          2:
+            name: 'keyword.operator.any'
+          3:
+            patterns: [
+              {
+                include: "#expression"
+              }
+              {
+                include: "#env-function"
+              }
+              {
+                include: "#prop-function"
+              }
+              {
+                include: "#string-quoted-single"
+              }
+              {
+                include: "#string-quoted-double"
+              }
+              {
+                include: "#numbers"
+              }
+            ]
+      }
+    ]
+  numbers:
+    patterns: [
+      match: '([0-9]+[lLfFdD]?)'
+      name: 'constant.numeric.decimal.java'
+      # {
+      #   'match': '''(?x)
+      #     \\b(?<!\\$)
+      #     0(x|X)
+      #     (
+      #       (?<!\\.)[0-9a-fA-F]([0-9a-fA-F_]*[0-9a-fA-F])?[Ll]?(?!\\.)
+      #       |
+      #       (
+      #         [0-9a-fA-F]([0-9a-fA-F_]*[0-9a-fA-F])?\\.?
+      #         |
+      #         ([0-9a-fA-F]([0-9a-fA-F_]*[0-9a-fA-F])?)?\\.[0-9a-fA-F]([0-9a-fA-F_]*[0-9a-fA-F])?
+      #       )
+      #       [Pp][+-]?[0-9]([0-9_]*[0-9])?[FfDd]?
+      #     )
+      #     \\b(?!\\$)
+      #   '''
+      #   'name': 'constant.numeric.hex.java'
+      # }
+      # {
+      #   'match': '\\b(?<!\\$)0(b|B)[01]([01_]*[01])?[Ll]?\\b(?!\\$)'
+      #   'name': 'constant.numeric.binary.java'
+      # }
+      # {
+      #   'match': '\\b(?<!\\$)0[0-7]([0-7_]*[0-7])?[Ll]?\\b(?!\\$)'
+      #   'name': 'constant.numeric.octal.java'
+      # }
+      # {
+      #   'match': '''(?x)
+      #     (?<!\\$)
+      #     (
+      #       \\b[0-9]([0-9_]*[0-9])?\\.\\B(?!\\.)
+      #       |
+      #       \\b[0-9]([0-9_]*[0-9])?\\.([Ee][+-]?[0-9]([0-9_]*[0-9])?)[FfDd]?\\b
+      #       |
+      #       \\b[0-9]([0-9_]*[0-9])?\\.([Ee][+-]?[0-9]([0-9_]*[0-9])?)?[FfDd]\\b
+      #       |
+      #       \\b[0-9]([0-9_]*[0-9])?\\.([0-9]([0-9_]*[0-9])?)([Ee][+-]?[0-9]([0-9_]*[0-9])?)?[FfDd]?\\b
+      #       |
+      #       (?<!\\.)\\B\\.[0-9]([0-9_]*[0-9])?([Ee][+-]?[0-9]([0-9_]*[0-9])?)?[FfDd]?\\b
+      #       |
+      #       \\b[0-9]([0-9_]*[0-9])?([Ee][+-]?[0-9]([0-9_]*[0-9])?)[FfDd]?\\b
+      #       |
+      #       \\b[0-9]([0-9_]*[0-9])?([Ee][+-]?[0-9]([0-9_]*[0-9])?)?[FfDd]\\b
+      #       |
+      #       \\b(0|[1-9]([0-9_]*[0-9])?)(?!\\.)[Ll]?\\b
+      #     )
+      #     (?!\\$)
+      #   '''
+      #   'name': 'constant.numeric.decimal.java'
+      # }
+    ]
+  'escaped-string':
+    match: '\\\\"'
+    name: 'constant.character.escape.asciidoc.properties'
+  'env-function':
+    match: 'env\\((\'\\w+\')(,\\s*(\'.*\'))?\\)'
+    name: 'constant.other.key.groovy'
+    captures:
+      1:
+        name: 'constant.language.groovy'
+      3:
+        name: 'constant.language.groovy'
+  'prop-function':
+    match: 'prop\\((\'\\w+\')(,\\s*(\'.*\'))?\\)'
+    name: 'constant.other.key.groovy'
+    captures:
+      1:
+        name: 'constant.language.groovy'
+      3:
+        name: 'constant.language.groovy'

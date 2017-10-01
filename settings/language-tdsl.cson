@@ -1,0 +1,3 @@
+'.source.tdsl':
+  'editor':
+    'commentStart': '# '
