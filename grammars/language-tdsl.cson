@@ -23,22 +23,21 @@ repository:
     match: '((#).*$\\n?)'
     captures:
       1:
-        name: 'comment.line.number-sign.asciidoc.properties'
+        name: 'comment.line.number-sign.tdsl.properties'
       2:
-        name: 'punctuation.definition.comment.asciidoc.properties'
+        name: 'punctuation.definition.comment.tdsl.properties'
       3:
-        name: 'comment.line.semi-colon.asciidoc.properties'
+        name: 'comment.line.semi-colon.tdsl.properties'
       4:
-        name: 'punctuation.definition.comment.asciidoc.properties'
+        name: 'punctuation.definition.comment.tdsl.properties'
   'value_pair':
-    name: 'meta.value-pair.section-item.asciidoc.properties'
+    name: 'meta.value-pair.section-item.tdsl.properties'
     begin: '(\'?[-\\w]+\'?)\\s*(=)\\s*(?!$)'
     captures:
       1:
-        name: 'punctuation.definition.entity.asciidoc.properties'
+        name: 'punctuation.definition.entity.tdsl.properties'
       2:
-        #name: 'punctuation.separator.key-value.asciidoc.properties'
-        name: 'keyword.operator.assignment.groovy'
+        name: 'keyword.operator.assignment.tdsl'
     end: '\\s'
     patterns: [
       {
@@ -82,14 +81,14 @@ repository:
     begin: '((\'.+\')|\\w+)\\s*(\\([^\\)]*\\))?\\s*(\\{)'
     beginCaptures:
       1:
-        name: 'entity.name.function.java'
+        name: 'entity.name.function.tdsl'
       3:
         patterns: [
           {
             match: '(class|active|exportable):\\s*([^,\\)]+)'
             captures:
               1:
-                name: 'keyword.control.groovy'
+                name: 'keyword.control.tdsl'
               2:
                 patterns: [
                   {
@@ -97,7 +96,7 @@ repository:
                   }
                   {
                     match: '[\\w\\.]+'
-                    name: 'meta.closure.parameter.groovy'
+                    name: 'meta.closure.parameter.tdsl'
                   }
                 ]
           }
@@ -118,12 +117,12 @@ repository:
           # }
         ]
       4:
-        name: 'punctuation.section.scope.begin.js'
+        name: 'punctuation.section.scope.begin.tdsl'
     end: '(\\})'
     endCaptures:
       1:
-        name: 'punctuation.section.scope.end.js'
-    name: 'meta.function.method.definition.js'
+        name: 'punctuation.section.scope.end.tdsl'
+    name: 'meta.function.method.definition.tdsl'
     patterns: [
       # {
       #   include: '#boolean'
@@ -159,7 +158,7 @@ repository:
   map:
     begin: '\\{'
     end: '\\}'
-    name: 'keyword.operator.assignment.groovy'
+    name: 'keyword.operator.assignment.tdsl'
     patterns: [
       # {
       #   include: '#boolean'
@@ -196,7 +195,7 @@ repository:
     match: '\\[(.*)\\]'
     begin: '\\['
     end: '\\]'
-    name: 'keyword.operator.assignment.groovy'
+    name: 'keyword.operator.assignment.tdsl'
     captures:
       1:
         patterns: [
@@ -246,58 +245,17 @@ repository:
   # Boolean value
   boolean:
     match: '\\b(?i:yes|no|0|1|true|false)\\b'
-    name: 'constant.language.boolean.asciidoc.properties'
-  # String value
-  # string:
-  #   name: 'string.quoted.double.asciidoc.properties'
-  #   begin: '"'
-  #   beginCaptures:
-  #     0:
-  #       name: 'punctuation.definition.string.begin.asciidoc.properties'
-  #   end: '"'
-  #   endCaptures:
-  #     0:
-  #       name: 'punctuation.definition.string.end.asciidoc.properties'
-  #   patterns: [
-  #     {
-  #       match: '\\\\[ntb"\\\\]'
-  #       name: 'constant.character.escape.asciidoc.properties'
-  #     }
-  #     {
-  #       match: '\\\\.'
-  #       name: 'invalid.illegal.unknown-escape.asciidoc.properties'
-  #     }
-  #   ]
-  # string2:
-  #   name: 'string.quoted.double.asciidoc.properties'
-  #   begin: '\''
-  #   beginCaptures:
-  #     0:
-  #       name: 'punctuation.definition.string.begin.asciidoc.properties'
-  #   end: '\''
-  #   endCaptures:
-  #     0:
-  #       name: 'punctuation.definition.string.end.asciidoc.properties'
-  #   patterns: [
-  #     {
-  #       match: '\\\\[ntb"\\\\]'
-  #       name: 'constant.character.escape.asciidoc.properties'
-  #     }
-  #     {
-  #       match: '\\\\.'
-  #       name: 'invalid.illegal.unknown-escape.asciidoc.properties'
-  #     }
-  #   ]
+    name: 'constant.language.boolean.tdsl.properties'
   'string-quoted-double':
     'begin': '"'
     'beginCaptures':
       '0':
-        'name': 'punctuation.definition.string.begin.groovy'
+        'name': 'punctuation.definition.string.begin.tdsl'
     'end': '"'
     'endCaptures':
       '0':
-        'name': 'punctuation.definition.string.end.groovy'
-    'name': 'string.quoted.double.groovy'
+        'name': 'punctuation.definition.string.end.tdsl'
+    'name': 'string.quoted.double.tdsl'
     'patterns': [
       {
         'include': '#string-quoted-double-contents'
@@ -307,21 +265,21 @@ repository:
     'patterns': [
       {
         'match': '\\\\.'
-        'name': 'constant.character.escape.groovy'
+        'name': 'constant.character.escape.tdsl'
       }
       {
         'applyEndPatternLast': 1
         'begin': '\\$\\w'
         'end': '(?=\\W)'
-        'name': 'variable.other.interpolated.groovy'
+        'name': 'variable.other.interpolated.tdsl'
         'patterns': [
           {
             'match': '\\w'
-            'name': 'variable.other.interpolated.groovy'
+            'name': 'variable.other.interpolated.tdsl'
           }
           {
             'match': '\\.'
-            'name': 'keyword.other.dereference.groovy'
+            'name': 'keyword.other.dereference.tdsl'
           }
         ]
       }
@@ -329,9 +287,9 @@ repository:
         'begin': '\\$\\{'
         'captures':
           '0':
-            'name': 'punctuation.section.embedded.groovy'
+            'name': 'punctuation.section.embedded.tdsl'
         'end': '\\}'
-        'name': 'source.groovy.embedded.source'
+        'name': 'source.tdsl.embedded.source'
         'patterns': [
           {
             'include': '#nest_curly'
@@ -343,12 +301,12 @@ repository:
     'begin': '\''
     'beginCaptures':
       '0':
-        'name': 'punctuation.definition.string.begin.groovy'
+        'name': 'punctuation.definition.string.begin.tdsl'
     'end': '\''
     'endCaptures':
       '0':
-        'name': 'punctuation.definition.string.end.groovy'
-    'name': 'string.quoted.single.groovy'
+        'name': 'punctuation.definition.string.end.tdsl'
+    'name': 'string.quoted.single.tdsl'
     'patterns': [
       {
         'include': '#string-quoted-single-contents'
@@ -358,7 +316,7 @@ repository:
     'patterns': [
       {
         'match': '\\\\.'
-        'name': 'constant.character.escape.groovy'
+        'name': 'constant.character.escape.tdsl'
       }
     ]
   expression:
@@ -415,7 +373,7 @@ repository:
   numbers:
     patterns: [
       match: '([0-9]+[lLfFdD]?)'
-      name: 'constant.numeric.decimal.java'
+      name: 'constant.numeric.decimal.tdsl'
       # {
       #   'match': '''(?x)
       #     \\b(?<!\\$)
@@ -469,20 +427,20 @@ repository:
     ]
   'escaped-string':
     match: '\\\\"'
-    name: 'constant.character.escape.asciidoc.properties'
+    name: 'constant.character.escape.tdsl.properties'
   'env-function':
     match: 'env\\((\'\\w+\')(,\\s*(\'.*\'))?\\)'
-    name: 'constant.other.key.groovy'
+    name: 'constant.other.key.tdsl'
     captures:
       1:
-        name: 'constant.language.groovy'
+        name: 'constant.language.tdsl'
       3:
-        name: 'constant.language.groovy'
+        name: 'constant.language.tdsl'
   'prop-function':
     match: 'prop\\((\'\\w+\')(,\\s*(\'.*\'))?\\)'
-    name: 'constant.other.key.groovy'
+    name: 'constant.other.key.tdsl'
     captures:
       1:
-        name: 'constant.language.groovy'
+        name: 'constant.language.tdsl'
       3:
-        name: 'constant.language.groovy'
+        name: 'constant.language.tdsl'

@@ -8,7 +8,5 @@
   },
   "homepage": "http://tigase.net",
   "license": "AGPLv3",
-  "devDependencies": {
-    "coffeelint": "^1.10.1"
-  }
+  "repository": "https://github.com/tigaseinc/tigase-dsl-syntax-highlighter-for-atom.git" 
 }
