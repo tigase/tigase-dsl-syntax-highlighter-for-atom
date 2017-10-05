@@ -1,6 +1,6 @@
 {
   "name": "language-tigase-dsl",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Tigase DSL syntax highlighter",
   "engines": {
     "atom": "*",
@@ -8,5 +8,5 @@
   },
   "homepage": "http://tigase.net",
   "license": "AGPLv3",
-  "repository": "https://github.com/tigaseinc/tigase-dsl-syntax-highlighter-for-atom.git" 
+  "repository": "https://github.com/tigaseinc/tigase-dsl-syntax-highlighter-for-atom.git"
 }
